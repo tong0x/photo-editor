@@ -8,7 +8,6 @@
 '''
 
 import numpy as np
-# import matplotlib.pyplot as plt
 from PIL import Image
 from cumMinEngHor import cumMinEngHor
 from cumMinEngVer import cumMinEngVer
@@ -19,7 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from scipy import signal
 import imageio
-# Takes image object, num rows, num columns
+
 def carv(I, nr, nc):
   res_list = []
   height, width, color = I.shape
@@ -34,7 +33,7 @@ def carv(I, nr, nc):
   My_transpose = np.transpose(My)
   T[1][0] = np.amin(My_transpose[height-1])
   for i in range(nr + nc):
-    # print i
+    
     if removed_c == nc:
       print("all columns removed")
       My, Tby = cumMinEngHor(e)
@@ -50,7 +49,7 @@ def carv(I, nr, nc):
       e = genEngMap(Ic)
       removed_c += 1
     elif T[removed_r][removed_c+1] > T[removed_r+1][removed_c]: #here is the problem
-      print("romoving row")
+      print("removing row")
       My, Tby = cumMinEngHor(e)
       Ic, E = rmHorSeam(Ic, My, Tby)
       res_list.append(Ic)

@@ -34,20 +34,19 @@ def hide_me(event):
 
 
 class MainView(tk.Frame):
-
-    data = np.zeros((100, 100, 3))
-    global_img = Image.fromarray(data, 'RGB')
     global filename
-    entry1 = 0
-    entry2 = 0
     global e1
     global e2
+    data = np.zeros((100, 100, 3))
+    global_img = Image.fromarray(data, 'RGB')
+    entry1 = 0
+    entry2 = 0
 
     def opening_pic(self):
         print("Opening a picture!")
         global filename
-        filename = filedialog.askopenfilename()
         global global_img
+        filename = filedialog.askopenfilename()
         global_img = Image.open(filename)
         img_data = np.asarray(global_img)
         file = ImageTk.PhotoImage(global_img)
@@ -97,7 +96,6 @@ class MainView(tk.Frame):
         file = ImageTk.PhotoImage(sharpened_image_object)
         print("test")
         global canvas
-        #canvas = Canvas(root, height=ht, width=wt)
         canvas.image = file  # file is photoimage
         canvas.itemconfig(file)
         # create image through passing in photo_object
@@ -113,8 +111,6 @@ class MainView(tk.Frame):
         global global_img
         img_data = np.asarray(global_img)
 
-        #img = img.resize((250, 250))
-
         ht, wt, color = img_data.shape
         if (ht > wt and ht > 800):
             global_img = global_img.resize((int(wt * 780 / ht), 780))
@@ -129,7 +125,6 @@ class MainView(tk.Frame):
         file = ImageTk.PhotoImage(blurred_image_object)
         print("test")
         global canvas
-        #canvas = Canvas(root, height=ht, width=wt)
         canvas.image = file  # file is photoimage
         canvas.itemconfig(file)
         # create image through passing in photo_object
@@ -145,13 +140,12 @@ class MainView(tk.Frame):
         global global_img
         img_data = np.asarray(global_img)
 
-        #img = img.resize((250, 250))
-
         ht, wt, color = img_data.shape
         if (ht > wt and ht > 800):
             global_img = global_img.resize((int(wt * 780 / ht), 780))
         if (wt > ht and wt > 800):
             global_img = global_img.resize((780, int(780 * ht / wt)))
+
         # filter and return image matrix
         sharpened_image = filter(img_data, 'unsharp')
         # convert image matrix into image object
@@ -172,22 +166,21 @@ class MainView(tk.Frame):
 
     def carv_pic(self):
         global entry1
-        global e1
-        entry1 = e1.get()
         global entry2
+        global e1
         global e2
         global global_img
+        global canvas
+        entry1 = e1.get()
         data = np.asarray(global_img)
         entry2 = e2.get()
-        print (entry1)
-        print (entry2)
+        print(entry1)
+        print(entry2)
         carved_arr, T = carv(np.uint8(data), int(entry1), int(entry2))
 
         # convert image object into photoimage
         carved_image = Image.fromarray(carved_arr, 'RGB')
         file = ImageTk.PhotoImage(carved_image)
-        global canvas
-        #canvas = Canvas(root, height=ht, width=wt)
         canvas.image = file  # file is photoimage
         canvas.itemconfig(file)
         # create image through passing in photo_object
@@ -196,7 +189,6 @@ class MainView(tk.Frame):
 
         # update global image which is an image object
         global_img = carved_image
-        # return rows, columns
 
     def save(self):
         global global_img
@@ -218,9 +210,6 @@ class MainView(tk.Frame):
 
         b1 = tk.Button(buttonframe, text="Open")
         b1["command"] = self.opening_pic
-        #b1.bind('<Button-1>', hide_me)
-
-        #b2 = tk.Button(buttonframe, text="Edit", command=p2.lift)
         b3 = tk.Button(buttonframe, text="Sharpen")
         b3["command"] = self.opening_pic_sharp
         b4 = tk.Button(buttonframe, text="Blur")
@@ -229,23 +218,26 @@ class MainView(tk.Frame):
         b5["command"] = self.opening_pic_unsharp
 
         global e1
-        e1 = tk.Entry(buttonframe, text="rows", width=4)
         global rows
         global e2
-        e2 = tk.Entry(buttonframe, text="column", width=4)
         global columns
+        e1 = tk.Entry(buttonframe, text="rows", width=4)
+        e2 = tk.Entry(buttonframe, text="column", width=4)
         e1.pack(side="right")
         e2.pack(side="right")
         b6 = tk.Button(buttonframe, text="Resize")
-        b6["command"] = self.carv_pic
         b6.pack(side="right")
+        b6["command"] = self.carv_pic
+        
         b7 = tk.Button(buttonframe, text="Save")
         b7["command"] = self.save
+
         b1.pack(side="left")
-        b7.pack(side="left")
         b3.pack(side="left")
         b4.pack(side="left")
         b5.pack(side="left")
+        b7.pack(side="left")
+
         p1.show()
 
 

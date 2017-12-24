@@ -212,28 +212,4 @@ def cannyEdge(Im):
 
   return E
 
-# for testing
-E = cannyEdge('Bikesgray.jpg')
-im = Image.fromarray(E, '1')
-im.show()
-plt.imshow(E)
-
-#==============================================================================
-# 
-# if __name__ == "__main__":
-#   # the folder name that stores all images
-#   # please make sure that this file has the same directory as image folder
-#   folder = 'test'
-# 
-#   # read images one by one
-#   for filename in os.listdir(folder):
-# 
-#       # read in image and convert color space for better visualization
-#     im_path = os.path.join(folder, filename)
-#     #if not im_path.startswith('.') or im_path != 'Thumbs.db':
-#     I = np.array(Image.open(im_path).convert('RGB'))
-# 
-#     ## TO DO: Complete 'cannyEdge' function
-#     E = cannyEdge(I)
-#==============================================================================
 
