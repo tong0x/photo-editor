@@ -11,3 +11,5 @@ Instruction of using the interface:
 a.	If doing resizing (carving), please enter the number of rows and number of columns you want to remove from the image at the top-right corner of the user interface
 b.	Carving might take a while to perform (approx. (nc + nr) * 3 seconds to run)
 3.	Close the window when you are finished
+
+Note: 3 jpg images are attached for you to test it out!
