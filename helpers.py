@@ -12,11 +12,12 @@ import math
     You can design any helper function in this file to improve algorithm
 '''
 
+
 def discretize(angle):
 
     pi = math.pi
 
-    #Condition
+    # Condition
     if angle < 0:
         angle += 2 * pi
     if angle >= 2 * pi:
@@ -40,6 +41,3 @@ def discretize(angle):
     elif angle >= 7 * pi / 4 and angle < 2 * pi:
         angle = 7 * pi / 4
     return angle
-
-
-

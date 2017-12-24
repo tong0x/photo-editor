@@ -228,7 +228,7 @@ class MainView(tk.Frame):
         b6 = tk.Button(buttonframe, text="Resize")
         b6.pack(side="right")
         b6["command"] = self.carv_pic
-        
+
         b7 = tk.Button(buttonframe, text="Save")
         b7["command"] = self.save
 

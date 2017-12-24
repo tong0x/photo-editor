@@ -1,7 +1,5 @@
 '''
   File name: utils.py
-  Author: Haoyuan(Steve) Zhang
-  Date created: 9/10/2017
 '''
 
 '''

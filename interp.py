@@ -1,7 +1,6 @@
 import numpy as np
 import pdb
 #####
-#   author: Xiao Zhang
 #
 #   Function Input 
 #   x     M*N            x coordinates meshgrid

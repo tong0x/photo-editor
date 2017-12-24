@@ -1,10 +1,5 @@
 '''
   File name: carv.py
-  Author:
-  Date created:
-'''
-
-'''
 '''
 
 import numpy as np
@@ -19,21 +14,22 @@ import matplotlib.animation as animation
 from scipy import signal
 import imageio
 
+
 def carv(I, nr, nc):
   res_list = []
   height, width, color = I.shape
-  T = np.zeros((nr+1, nc+1))
+  T = np.zeros((nr + 1, nc + 1))
   e = genEngMap(I)
   Ic = I
   Mx, Tbx = cumMinEngVer(e)
   My, Tby = cumMinEngHor(e)
   removed_c = 0
   removed_r = 0
-  T[0][1] = np.amin(Mx[height-1])
+  T[0][1] = np.amin(Mx[height - 1])
   My_transpose = np.transpose(My)
-  T[1][0] = np.amin(My_transpose[height-1])
+  T[1][0] = np.amin(My_transpose[height - 1])
   for i in range(nr + nc):
-    
+
     if removed_c == nc:
       print("all columns removed")
       My, Tby = cumMinEngHor(e)
@@ -48,7 +44,7 @@ def carv(I, nr, nc):
       res_list.append(Ic)
       e = genEngMap(Ic)
       removed_c += 1
-    elif T[removed_r][removed_c+1] > T[removed_r+1][removed_c]: #here is the problem
+    elif T[removed_r][removed_c + 1] > T[removed_r + 1][removed_c]:  # here is the problem
       print("removing row")
       My, Tby = cumMinEngHor(e)
       Ic, E = rmHorSeam(Ic, My, Tby)
@@ -57,10 +53,10 @@ def carv(I, nr, nc):
       removed_r += 1
       Mx, Tbx = cumMinEngVer(e)
       My, Tby = cumMinEngHor(e)
-      T[removed_r][removed_c+1] = np.amin(Mx[height-1-removed_r])
+      T[removed_r][removed_c + 1] = np.amin(Mx[height - 1 - removed_r])
       My_transpose = np.transpose(My)
       if (removed_r < nr):
-        T[removed_r+1][removed_c] = np.amin(My_transpose[width-1-removed_c])
+        T[removed_r + 1][removed_c] = np.amin(My_transpose[width - 1 - removed_c])
     else:
       print("removing column")
       Mx, Tbx = cumMinEngVer(e)
@@ -71,8 +67,8 @@ def carv(I, nr, nc):
       Mx, Tbx = cumMinEngVer(e)
       My, Tby = cumMinEngHor(e)
       if (removed_c < nc):
-        T[removed_r][removed_c+1] = np.amin(Mx[height-1-removed_r])
+        T[removed_r][removed_c + 1] = np.amin(Mx[height - 1 - removed_r])
       My_transpose = np.transpose(My)
-      T[removed_r+1][removed_c] = np.amin(My_transpose[width-1-removed_c])
-  
+      T[removed_r + 1][removed_c] = np.amin(My_transpose[width - 1 - removed_c])
+
   return np.uint8(Ic), T
